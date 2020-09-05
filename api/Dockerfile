@@ -8,6 +8,8 @@ RUN npm install
 
 RUN npm i -g nodemon
 
+RUN npm run postinstall
+
 COPY . .
 
 EXPOSE ${API_INT_PORT}

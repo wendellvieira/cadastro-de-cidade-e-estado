@@ -4,7 +4,8 @@
   "description": "Api para o crud de cidade e estado",
   "main": "entry.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "postinstall": "link-module-alias"
   },
   "keywords": [
     "node",
@@ -12,12 +13,19 @@
     "jest",
     "swagger"
   ],
+  "_moduleAliases": {
+    "Controllers": "src/Controllers",
+    "Routes": "src/Routes",
+    "Models": "src/Models",
+    "Configs": "src/Configs"
+  },
   "author": "wendell vieira da cunha <wendell.vieiracunha@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "body-parse": "^0.1.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "link-module-alias": "^1.2.0",
     "lodash": "^4.17.20"
   }
 }
