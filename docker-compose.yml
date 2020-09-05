@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  mongo:
+    image: "bitnami/mongodb:3.6.19-debian-9-r25"
+    container_name: "${PROJECT_ALIAS}_MONGO"
+    ports: 
+      - "27017:27017"
+
+  api:
+    container_name: "${PROJECT_ALIAS}_API"
+    build: ./api
+    volumes:
+      - ./api:/node-app
+    environment:
+      NODE_ENV: development
+      API_INT_PORT:      
+    depends_on:
+      - mongo
+    links:
+      - mongo
+    ports:
+      - "${API_INT_PORT}:${API_EXT_PORT}"
+
+  # web:
+  #   container_name: "${PROJECT_ALIAS}_WEB"
+  #   build: ./web
+  #   volumes:
+  #     - ./web/src:/node-app/src
+  #   environment:
+  #     NODE_ENV: development
+  #   depends_on:
+  #     - api
+  #   links:
+  #     - api
+  #   ports:
+  #     - "8080:8080"

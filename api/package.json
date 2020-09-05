@@ -1,0 +1,17 @@
+{
+  "name": "backend-cidade-estado",
+  "version": "1.0.0",
+  "description": "Api para o crud de cidade e estado",
+  "main": "entry.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "node",
+    "mongo",
+    "jest",
+    "swagger"
+  ],
+  "author": "wendell vieira da cunha <wendell.vieiracunha@gmail.com>",
+  "license": "ISC"
+}
