@@ -9,12 +9,16 @@ module.exports = class Server {
         const cors = require('cors')
         this.app.use( cors() )
 
+        const consign = require('consign')
+        const ConsignSettings = require('Configs/ConsignSettings.js')
+        consign(ConsignSettings).include('src/Routes').into(this.app)
+
         this.port = process.env.API_INT_PORT || 5000
     }
 
     init(){
         this.app.listen( this.port, () => {
-            console.log(`O Servidor estar online na porta ${this.port}` )
+            console.log( `O Servidor estar online na porta ${this.port}` )
         } )
     }
 }
