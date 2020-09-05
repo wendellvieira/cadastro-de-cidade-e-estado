@@ -4,6 +4,8 @@ WORKDIR /node-app
 
 ENV API_INT_PORT 5000
 
+ENV MONGO_URI ""
+
 COPY ./package.json ./
 
 RUN npm install
