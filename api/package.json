@@ -28,6 +28,7 @@
     "express": "^4.17.1",
     "link-module-alias": "^1.2.0",
     "lodash": "^4.17.20",
+    "mongoose": "^5.10.3",
     "swagger-jsdoc": "^4.0.0",
     "swagger-ui-express": "^4.1.4"
   },

@@ -5,7 +5,7 @@ services:
     image: "bitnami/mongodb:3.6.19-debian-9-r25"
     container_name: "${PROJECT_ALIAS}_MONGO"
     ports: 
-      - "27017:27017"
+      - "27017:${MONGO_PORT}"
 
   api:
     container_name: "${PROJECT_ALIAS}_API"
@@ -15,7 +15,8 @@ services:
     environment:
       NODE_ENV: development
       API_INT_PORT:
-      API_URL:  
+      API_URL:
+      MONGO_URI:  
     depends_on:
       - mongo
     links:

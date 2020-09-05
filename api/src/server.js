@@ -15,7 +15,9 @@ module.exports = class Server {
     configureConsign(){
         const consign = require('consign')
         const ConsignSettings = require('Configs/ConsignSettings.js')
-        consign(ConsignSettings).include('src/Routes').into(this.app)
+        consign(ConsignSettings)
+            .include('src/Routes')
+            .into(this.app)
     }
 
     configureSwagger(){
@@ -25,6 +27,11 @@ module.exports = class Server {
         
         const swaggerDocs = swaggerJsDoc(swaggerOptions)
         this.app.use( "/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs) )
+    }
+
+    async iniciandoMongo(){
+        const Mongo = require('Configs/MongoConnect.js')
+        await Mongo.connect()
     }
 
     listen(){
@@ -38,6 +45,8 @@ module.exports = class Server {
         this.configureConsign()
 
         this.configureSwagger()
+
+        this.iniciandoMongo()
 
         return this
         
