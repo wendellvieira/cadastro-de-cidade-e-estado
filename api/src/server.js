@@ -38,6 +38,8 @@ module.exports = class Server {
         this.configureConsign()
 
         this.configureSwagger()
+
+        return this
         
     }
 }
