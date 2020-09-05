@@ -13,5 +13,8 @@
     "swagger"
   ],
   "author": "wendell vieira da cunha <wendell.vieiracunha@gmail.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
