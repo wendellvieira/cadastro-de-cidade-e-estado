@@ -27,14 +27,17 @@ module.exports = class Server {
         this.app.use( "/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs) )
     }
 
+    listen(){
+        this.app.listen( this.port, () => {
+            console.log( `O Servidor estar online na porta ${this.port}` )
+        })
+    }
+
     init(){
         
         this.configureConsign()
 
         this.configureSwagger()
-
-        this.app.listen( this.port, () => {
-            console.log( `O Servidor estar online na porta ${this.port}` )
-        } )
+        
     }
 }
