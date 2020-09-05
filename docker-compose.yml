@@ -11,10 +11,11 @@ services:
     container_name: "${PROJECT_ALIAS}_API"
     build: ./api
     volumes:
-      - ./api:/node-app
+      - ./api/src:/node-app/src
     environment:
       NODE_ENV: development
-      API_INT_PORT:      
+      API_INT_PORT:
+      API_URL:  
     depends_on:
       - mongo
     links:
