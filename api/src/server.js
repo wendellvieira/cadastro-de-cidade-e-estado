@@ -8,15 +8,31 @@ module.exports = class Server {
 
         const cors = require('cors')
         this.app.use( cors() )
-
-        const consign = require('consign')
-        const ConsignSettings = require('Configs/ConsignSettings.js')
-        consign(ConsignSettings).include('src/Routes').into(this.app)
-
+       
         this.port = process.env.API_INT_PORT || 5000
     }
 
+    configureConsign(){
+        const consign = require('consign')
+        const ConsignSettings = require('Configs/ConsignSettings.js')
+        consign(ConsignSettings).include('src/Routes').into(this.app)
+    }
+
+    configureSwagger(){
+        const swaggerJsDoc = require("swagger-jsdoc")
+        const swaggerUi = require("swagger-ui-express")
+        const swaggerOptions = require('Configs/SwaggerOptions.js')
+        
+        const swaggerDocs = swaggerJsDoc(swaggerOptions)
+        this.app.use( "/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs) )
+    }
+
     init(){
+        
+        this.configureConsign()
+
+        this.configureSwagger()
+
         this.app.listen( this.port, () => {
             console.log( `O Servidor estar online na porta ${this.port}` )
         } )
