@@ -14,10 +14,14 @@ RUN npm i -g nodemon jest
 
 COPY ./src ./src
 
+COPY ./__tests__ ./__tests__
+
 COPY ./entry.js .
+
+COPY ./jest.config.js .
 
 RUN npm run postinstall
 
 EXPOSE ${API_INT_PORT}
 
-CMD [ "nodemon", "-L", "--watch", ".", "entry.js" ]
+CMD [ "nodemon", "-L", "--watch", ".", "entry.js", "--ignore", "__tests__"]

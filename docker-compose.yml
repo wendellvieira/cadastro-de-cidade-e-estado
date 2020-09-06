@@ -12,6 +12,7 @@ services:
     build: ./api
     volumes:
       - ./api/src:/node-app/src
+      - ./api/__tests__:/node-app/__tests__
     environment:
       NODE_ENV: development
       API_INT_PORT:
