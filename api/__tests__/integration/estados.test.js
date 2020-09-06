@@ -34,10 +34,10 @@ describe("Integridade da api de estados", () => {
         })
     })
 
-    describe("GET /api/estados", () => {   
+    describe("GET /api/estados/:id", () => {   
              
-        test("Verifica o status:200 e se a resposta é array", async () => {        
-            const { statusCode, body } = await request( API.app ).get('/api/estados')
+        test("Verifica o retorno da lista de usuários", async () => {        
+            const { statusCode, body } = await request( API.app ).get('/api/estados/all')
             expect(statusCode).toBe(200)    
             expect( Array.isArray(body) ).toBeTruthy()
         })
@@ -58,7 +58,7 @@ describe("Integridade da api de estados", () => {
         beforeAll( async () => {
             resp = await request( API.app )
                 .put(`/api/estados/${id_estado}`)
-                send(newState)
+                .send(newState)
         }) 
 
         test("Verificar se o metodo retorna o status 200", async () => {
