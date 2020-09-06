@@ -10,6 +10,7 @@ const EstadoSchema = new Schema({
     abreviacao: {
         type: String,
         require: true,
+        uppercase:true,
         validate: {
             validator: val => /([a-z]{2})/i.test(val),
             message: props => `A abreviação do estado é composta por duas letras`
@@ -20,8 +21,7 @@ const EstadoSchema = new Schema({
         default: new Date
     },
     ultima_alteracao: {
-        type: Date,
-        default: new Date
+        type: Date
     }
 })
 

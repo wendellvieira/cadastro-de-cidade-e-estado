@@ -17,8 +17,7 @@ const CidadeSchema = new Schema({
         default: new Date
     },
     ultima_alteracao: {
-        type: Date,
-        default: new Date
+        type: Date
     }
 })
 
