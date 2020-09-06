@@ -14,6 +14,6 @@ module.exports = {
       }
     },
     apis: [
-        "../Routes/*.js"
+        "./src/Routes/*.js"
     ]
   }

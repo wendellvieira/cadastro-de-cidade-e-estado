@@ -29,7 +29,7 @@ class EstadoCtrl {
 
     async update(req, res){
         try {
-            if( !req.params.id ) res.status(400).json("Falta o id do estado")
+            if( !req.params.id ) res.status(406).json("Falta o id do estado")
             const dataSave = {
                 ...req.body,
                 ultima_alteracao: Date.now()
@@ -43,7 +43,7 @@ class EstadoCtrl {
 
     async delete(req, res){
         try {
-            if( !req.params.id ) res.status(400).json("Falta o id do estado")
+            if( !req.params.id ) res.status(406).json("Falta o id do estado")
             const data = await Estado.findByIdAndRemove({_id: req.params.id}, req.body)
             res.json({msg: "Estado excluido com sucesso!"})
 

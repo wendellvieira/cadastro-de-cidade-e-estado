@@ -26,7 +26,6 @@ module.exports = class Server {
         const swaggerJsDoc = require("swagger-jsdoc")
         const swaggerUi = require("swagger-ui-express")
         const swaggerOptions = require('Configs/SwaggerOptions.js')
-        
         const swaggerDocs = swaggerJsDoc(swaggerOptions)
         this.app.use( "/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs) )
     }
