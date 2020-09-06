@@ -8,11 +8,13 @@ module.exports = class Server {
 
         const cors = require('cors')
         this.app.use( cors() )
+
+        this.mongo = require('Configs/MongoConnect.js')
        
         this.port = process.env.API_INT_PORT || 5000
     }
 
-    configureConsign(){
+    async configureConsign(){
         const consign = require('consign')
         const ConsignSettings = require('Configs/ConsignSettings.js')
         consign(ConsignSettings)
@@ -30,8 +32,11 @@ module.exports = class Server {
     }
 
     async iniciandoMongo(){
-        const Mongo = require('Configs/MongoConnect.js')
-        await Mongo.connect()
+        await this.mongo.connect()
+    }
+
+    async disconnectMongo(){
+        await this.mongo.disconnect()
     }
 
     listen(){
@@ -50,5 +55,13 @@ module.exports = class Server {
 
         return this
         
+    }
+
+    async testInit(){
+        await this.configureConsign()
+
+        await this.iniciandoMongo()
+
+        return this
     }
 }

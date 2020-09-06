@@ -10,7 +10,7 @@ module.exports = {
             useUnifiedTopology: true
         });
     },
-    disconnect(done){
-        mongoose.disconnect(done);
+    async disconnect(done){
+        await mongoose.disconnect(done);
     }
 };

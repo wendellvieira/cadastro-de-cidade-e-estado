@@ -4,7 +4,9 @@ const EstadoCtrl = require('Controllers/estados.js')
 module.exports = app => {
     const routes = Router()
 
-    routes.get("/", [])
+    routes.get("/", [
+        EstadoCtrl.getAll
+    ])
     routes.post("/", [
         EstadoCtrl.create
     ])
