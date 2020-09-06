@@ -14,7 +14,6 @@ services:
       - ./api/src:/node-app/src
       - ./api/__tests__:/node-app/__tests__
     environment:
-      NODE_ENV: development
       API_INT_PORT:
       API_URL:
       MONGO_URI:  
@@ -25,16 +24,27 @@ services:
     ports:
       - "${API_INT_PORT}:${API_EXT_PORT}"
 
-  # web:
-  #   container_name: "${PROJECT_ALIAS}_WEB"
-  #   build: ./web
-  #   volumes:
-  #     - ./web/src:/node-app/src
-  #   environment:
-  #     NODE_ENV: development
-  #   depends_on:
-  #     - api
-  #   links:
-  #     - api
-  #   ports:
-  #     - "8080:8080"
+  web:
+    container_name: "${PROJECT_ALIAS}_WEB"
+    build: ./web
+    volumes:
+      - ./web/src:/node-app/src
+      - ./web/public:/node-app/public
+      - ./web/test:/node-app/test
+    environment:
+      API_URL:
+    depends_on:
+      - api
+      - mongo
+    links:
+      - api
+    ports:
+      - "${WEB_INT_PORT}:${WEB_EXT_PORT}"
+
+
+
+
+
+
+
+      
