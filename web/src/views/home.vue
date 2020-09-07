@@ -14,9 +14,11 @@
             <div class="col-6">
                 <h4>Cadastro de cidade</h4>
                 
-                <cadastro-cidade />
+                <cadastro-cidade ref='cadastroCidade' />
 
-                <lista-cidades />
+                <lista-cidades 
+                    @load-data='$refs.cadastroCidade.setData($event)'
+                />
 
             </div>
         </div>
