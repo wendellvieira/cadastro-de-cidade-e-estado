@@ -5,23 +5,31 @@
                 <tr>
                     <th>Estado</th>
                     <th>UF</th>
-                    <th>Ações</th>
+                    <th class='text-center'>Ações</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>Rio de Janeiro</td>
                     <td>RJ</td>
-                    <td>
-                        <button class="btn btn-primary btn-sm">
-                            E
-                        </button>
-                        <button class="btn btn-danger btn-sm">
-                            D
-                        </button>
+                    <td class='text-center'>
+                        <edit-btn />
+                    
+                        <trash-btn />
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
 </template>
+<script>
+    import TrashBtn from "@/components/trash-btn"
+    import EditBtn from "@/components/edit-btn"
+
+    export default {
+        components: {
+            TrashBtn,
+            EditBtn
+        }
+    };
+</script>
