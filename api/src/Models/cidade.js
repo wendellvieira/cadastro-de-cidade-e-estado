@@ -9,7 +9,7 @@ const CidadeSchema = new Schema({
         require: true
     },
     estado_id: {
-        type: ObjectId,
+        type: String,
         require: true
     },
     criado_em: {

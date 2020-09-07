@@ -1,4 +1,5 @@
 const { Router } = require('express')
+const CidadeCtrl = require('Controllers/cidades.js')
 
   /**
     * @swagger
@@ -53,7 +54,9 @@ module.exports = app => {
     *        '400':
     *           description: Erro por parte do cliente
     */
-    routes.get("/", [])
+    routes.get("/", [
+      CidadeCtrl.getAll
+    ])
 
 
   /**
@@ -72,7 +75,9 @@ module.exports = app => {
     *        '400':
     *           description: Erro ao cadastrar Estado
     */
-   routes.post("/", [])
+    routes.post("/", [
+      CidadeCtrl.create
+    ])
    
    
    /**
@@ -97,7 +102,9 @@ module.exports = app => {
      *        '400':
      *           description: Erro ao cadastrar Estado
      */
-    routes.put("/:id", [])
+    routes.put("/:id", [
+      CidadeCtrl.update
+    ])
     
     
     
@@ -123,7 +130,9 @@ module.exports = app => {
       *        '400':
       *           description: Erro ao cadastrar Estado
       */
-    routes.delete("/:id", [])
+    routes.delete("/:id", [
+      CidadeCtrl.delete
+    ])
 
-    app.use( "/cidades", routes )
+    app.use( "/api/cidades", routes )
 }
