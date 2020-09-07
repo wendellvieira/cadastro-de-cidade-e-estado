@@ -6,15 +6,16 @@ module.exports = app => {
 
    /**
     * @swagger
+    * tags:
+    *   - name: Estados
+    *     description: Rotas para manipulação de estados
+    * 
     * 
     * definitions:
     *   Estado:
     *     type: object
-    *     require:
-    *       - nome
-    *       - abreviacao
     *     properties:
-    *       name:
+    *       nome:
     *         type: string
     *       abreviacao:
     *         type: string
@@ -24,7 +25,7 @@ module.exports = app => {
     *     properties:
     *       _id:
     *         type: string
-    *       name:
+    *       nome:
     *         type: string
     *       abreviacao:
     *         type: string
@@ -35,31 +36,34 @@ module.exports = app => {
     *  
     */
 
-/**
-  * @swagger
-  * 
-  * /api/estados/all:
-  *    get:
-  *      description: Retorna um array de estados
-  *      responses:
-  *        '200':
-  *           description: OK
-  *           schema:
-  *             type: array
-  *             items: 
-  *               $ref: '#/definitions/EstadoRegistrado'
-  *        '404':
-  *           description: O usuário não foi encontrado
-  *        '400':
-  *           description: Erro por parte do cliente
-  */
+
 
   /**
     * @swagger
     * 
+    * /api/estados/all:
+    *    get:
+    *      tags: 
+    *        - Estados
+    *      summary: Retorna um array de estados
+    *      responses:
+    *        '200':
+    *           description: OK
+    *           schema:
+    *             type: array
+    *             items: 
+    *               $ref: '#/definitions/EstadoRegistrado'
+    *        '404':
+    *           description: O usuário não foi encontrado
+    *        '400':
+    *           description: Erro por parte do cliente
+    * 
+    * 
     * /api/estados/{id}:
     *    get:
-    *      description: Retorna um estado
+    *      tags:
+    *        - Estados
+    *      summary: Retorna um estado
     *      parameters:
     *        - name: id
     *          description: Id do estado
@@ -74,26 +78,27 @@ module.exports = app => {
     *        '400':
     *           description: Erro por parte do cliente
     */
-
     routes.get("/:id", [
         EstadoCtrl.getAll
     ])
+
 
    /**
     * @swagger
     * 
     * /api/estados:
     *    post:
-    *      description: Cadastra um novo Estado
+    *      summary: Cadastra um novo Estado
+    *      tags:
+    *        - Estados
     *      responses:
     *        '200':
     *           description: Estado cadastrado com sucesso
     *           schema: 
-    *             $ref: '#/definitions/EstadoRegistrado'
+    *             $ref: '#/definitions/Estado'
     *        '400':
     *           description: Erro ao cadastrar Estado
     */
-
     routes.post("/", [
         EstadoCtrl.create
     ])
@@ -105,7 +110,9 @@ module.exports = app => {
     * 
     * /api/estados/{id}:
     *    put:
-    *      description: Altera um Estado
+    *      summary: Altera um Estado
+    *      tags:
+    *        - Estados
     *      parameters:
     *        - name: id
     *          description: Id do estado
@@ -129,7 +136,9 @@ module.exports = app => {
     * 
     * /api/estados/{id}:
     *    delete:
-    *      description: Excluí um Estado
+    *      summary: Excluí um Estado
+    *      tags: 
+    *        - Estados
     *      parameters:
     *        - name: id
     *          description: Id do estado
