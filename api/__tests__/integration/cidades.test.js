@@ -14,11 +14,10 @@ describe("Integridade da api de cidades", () => {
         await API.testInit()
         const { body } =  await request( API.app )
                 .post('/api/estados')
-                .send({ nome: "Estado teste", abreviacao: "ET" })
+                .send({ nome: "Rio de janeiro", abreviacao: "ET" })
         
         Cidade.estado_id = body._id
     })
-
 
    
     describe("POST /api/cidades", () => {
@@ -41,6 +40,20 @@ describe("Integridade da api de cidades", () => {
         })
     })
 
+    describe("GET /api/cidades/all", () => {   
+             
+        test("Verifica o retorno da lista de usuários", async () => {        
+            const { statusCode, body } = await request( API.app ).get('/api/cidades/all')
+            expect(statusCode).toBe(200)    
+            expect( Array.isArray(body) ).toBeTruthy()
+        })
+
+        test("Verifica se consigo pegar um unico registro", async () => {
+            const { statusCode, body } = await request( API.app ).get(`/api/cidades/${id_cidade}`)
+            expect(statusCode).toBe(200)  
+            expect( body ).toEqual( expect.objectContaining({ ...Cidade, _id: id_cidade }) )
+        })
+    })
 
     describe("PUT /api/cidades", () => {  
         let resp;
@@ -80,7 +93,10 @@ describe("Integridade da api de cidades", () => {
     })
         
     afterAll( async (done) => {
-        API.disconnectMongo();
-        if(!!Cidade.estado_id) await request( API.app ).delete(`/api/estados/${Cidade.estado_id}`)
+        await request( API.app ).delete(`/api/estados/${Cidade.estado_id}`)
+        API.disconnectMongo()
+        done()
     })
+
+    
 })
