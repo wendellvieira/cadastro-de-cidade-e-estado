@@ -5,6 +5,7 @@ module.exports = class Server {
 
         const bodyParser = require('body-parser')
         this.app.use( bodyParser.json() )
+        this.app.use( bodyParser.urlencoded({ extended: true }) )
 
         const cors = require('cors')
         this.app.use( cors() )

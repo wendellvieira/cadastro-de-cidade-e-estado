@@ -4,9 +4,11 @@
             <div class="col-6">
                 <h4>Cadastro de estados</h4>
 
-                <cadastro-estado />
+                <cadastro-estado ref='cadastroEstados' />
                 
-                <lista-estados />
+                <lista-estados 
+                    @load-data='$refs.cadastroEstados.setData($event)'
+                />
                 
             </div>
             <div class="col-6">

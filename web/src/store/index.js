@@ -29,8 +29,23 @@ export default new Vuex.Store({
 				throw error
 			}
 		},
-		async $save_estados( {dispatch}, data ){
-
+		async $create_estados( {dispatch}, estado ){
+			try {
+				const {data, status} = await instance.post(`/estados`, estado)
+				if( status == 200 ) await dispatch('$load_estados')				
+			} catch (error) {
+				console.log(error)
+				throw error
+			}
+			},
+			async $update_estados( {dispatch}, estado ){
+			try {
+				const {data, status} = await instance.put(`/estados/${estado._id}`, estado)
+				if( status == 200 ) await dispatch('$load_estados')				
+			} catch (error) {
+				console.log(error)
+				throw error
+			}
 		},
 		async $delete_estados( {dispatch}, estado_id ){
 			try {

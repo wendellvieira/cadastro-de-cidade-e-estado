@@ -15,7 +15,9 @@
                     <td>{{ estado.abreviacao }}</td>
                     <td>{{ estado.criado_em | date }}</td>
                     <td class='text-center'>
-                        <edit-btn />
+                        <edit-btn 
+                            @click.native='$emit("load-data", estado)'
+                        />
                     
                         <trash-btn 
                             :fx='$delete_estados'
