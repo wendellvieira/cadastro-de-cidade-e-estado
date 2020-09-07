@@ -5,7 +5,7 @@ services:
     image: "bitnami/mongodb:3.6.19-debian-9-r25"
     container_name: "${PROJECT_ALIAS}_MONGO"
     ports: 
-      - "27017:${MONGO_PORT}"
+      - 27017:${MONGO_PORT}
 
   api:
     container_name: "${PROJECT_ALIAS}_API"
@@ -22,25 +22,26 @@ services:
     links:
       - mongo
     ports:
-      - "${API_INT_PORT}:${API_EXT_PORT}"
+      - ${API_INT_PORT}:${API_EXT_PORT}
 
   web:
     container_name: "${PROJECT_ALIAS}_WEB"
-    build: ./web
+    build: 
+      context: ./web
+      args:
+        API_URL:
+        WEB_INT_PORT:
     volumes:
       - ./web/src:/node-app/src
       - ./web/public:/node-app/public
       - ./web/test:/node-app/test
-    environment:
-      API_URL:
-      NODE_ENV:
     depends_on:
       - api
       - mongo
     links:
       - api
     ports:
-      - "${WEB_INT_PORT}:${WEB_EXT_PORT}"
+      - ${WEB_INT_PORT}:${WEB_EXT_PORT}
 
 
 

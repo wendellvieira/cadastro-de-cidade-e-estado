@@ -2,9 +2,13 @@ FROM node:12.8-alpine
 
 WORKDIR /node-app
 
-ENV WEB_INT_PORT 8080
+ARG WEB_INT_PORT
 
-ENV API_URL 'http://localhost:5000'
+ARG API_URL
+
+RUN echo "VUE_APP_SERVER_URI=$API_URL" > .env
+
+# CMD cat .env
 
 COPY ./package.json ./
 
