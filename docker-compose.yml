@@ -33,6 +33,7 @@ services:
       - ./web/test:/node-app/test
     environment:
       API_URL:
+      NODE_ENV:
     depends_on:
       - api
       - mongo
