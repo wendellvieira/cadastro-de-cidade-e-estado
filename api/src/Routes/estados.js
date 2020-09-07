@@ -41,24 +41,6 @@ module.exports = app => {
   /**
     * @swagger
     * 
-    * /api/estados/all:
-    *    get:
-    *      tags: 
-    *        - Estados
-    *      summary: Retorna um array de estados
-    *      responses:
-    *        '200':
-    *           description: OK
-    *           schema:
-    *             type: array
-    *             items: 
-    *               $ref: '#/definitions/EstadoRegistrado'
-    *        '404':
-    *           description: O usuário não foi encontrado
-    *        '400':
-    *           description: Erro por parte do cliente
-    * 
-    * 
     * /api/estados/{id}:
     *    get:
     *      tags:
@@ -68,6 +50,7 @@ module.exports = app => {
     *        - name: id
     *          description: Id do estado
     *          type: ObjectId
+    *          default: all
     *      responses:
     *        '200':
     *           description: OK

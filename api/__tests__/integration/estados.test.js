@@ -87,7 +87,8 @@ describe("Integridade da api de estados", () => {
 
     })
         
-    afterAll( (done) => {
-        API.disconnectMongo();
+    afterAll( async (done) => {
+        await API.disconnectMongo()
+        done()
     })
 })

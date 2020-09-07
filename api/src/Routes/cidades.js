@@ -40,9 +40,14 @@ module.exports = app => {
     /**
     * @swagger
     * 
-    * /api/cidades:
+    * /api/cidades/{id}:
     *    get:
     *      summary: Retorna array de cidades
+    *      parameters:
+    *        - name: id
+    *          description: Id do estado
+    *          type: ObjectId
+    *          default: all
     *      tags:
     *        - Cidades
     *      responses:
@@ -54,7 +59,7 @@ module.exports = app => {
     *        '400':
     *           description: Erro por parte do cliente
     */
-    routes.get("/", [
+    routes.get("/:id", [
       CidadeCtrl.getAll
     ])
 
