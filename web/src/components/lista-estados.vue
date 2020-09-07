@@ -10,14 +10,17 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for='item in estados' :key='item._id'>
-                    <td>{{ item.nome }}</td>
-                    <td>{{ item.abreviacao }}</td>
-                    <td>{{ item.criado_em | date }}</td>
+                <tr v-for='estado in estados' :key='estado._id'>
+                    <td>{{ estado.nome }}</td>
+                    <td>{{ estado.abreviacao }}</td>
+                    <td>{{ estado.criado_em | date }}</td>
                     <td class='text-center'>
                         <edit-btn />
                     
-                        <trash-btn />
+                        <trash-btn 
+                            :fx='$delete_estados'
+                            :item_id='estado._id'
+                        />
                     </td>
                 </tr>
             </tbody>
@@ -45,7 +48,8 @@
         },
         methods: {
             ...mapActions([
-                "$load_estados"
+                "$load_estados",
+                "$delete_estados"
             ])
         },
         mounted() {
