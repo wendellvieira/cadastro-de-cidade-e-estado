@@ -62,6 +62,10 @@ module.exports = app => {
     */
     routes.get("/:id", [
       AuthApi,
+      async (req, res, next) => await CidadeCtrl.validacao(
+        ["id"], 
+        {req, res, next}
+      ),
       CidadeCtrl.getAll
     ])
 
@@ -84,6 +88,10 @@ module.exports = app => {
     */
     routes.post("/", [
       AuthApi,
+      async (req, res, next) => await CidadeCtrl.validacao(
+        ["nome", "estado_id"], 
+        {req, res, next}
+      ),
       CidadeCtrl.create
     ])
    
@@ -112,6 +120,10 @@ module.exports = app => {
      */
     routes.put("/:id", [
       AuthApi,
+      async (req, res, next) => await CidadeCtrl.validacao(
+        ["id", "nome", "estado_id", "criado_em"], 
+        {req, res, next}
+      ),
       CidadeCtrl.update
     ])
     
@@ -141,6 +153,10 @@ module.exports = app => {
       */
     routes.delete("/:id", [
       AuthApi,
+      async (req, res, next) => await CidadeCtrl.validacao(
+        ["id"], 
+        {req, res, next}
+      ),
       CidadeCtrl.delete
     ])
 

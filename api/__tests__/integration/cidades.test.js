@@ -2,43 +2,53 @@ const request = require("supertest")
 const Server = require("Src/server.js")
 const API = (new Server)
 
+const Cidade = require("Models/cidade.js")
+const Estado = require("Models/estado.js")
+
 describe("Integridade da api de cidades", () => {
     
     let id_cidade;
-    const Cidade = {
-        nome: "Itaboraí",
+    let CidadeCriada;
+    let IdCidadeCriadaPost;
+    let defaultState = {
+        nome: "Cidade Teste",
         estado_id: null        
     }
 
     beforeAll(async () => {
         await API.testInit()
-        const { body } =  await request( API.app )
-                .post('/api/estados')
-                .send({ nome: "Rio de janeiro", abreviacao: "ET" })
-                .set({ 'x-api-key': process.env.WEB_SECRET }) 
-        
-        Cidade.estado_id = body._id
+        const newEstado = await new Estado({ nome: "Estado Teste", abreviacao: "ET"}).save()
+        defaultState.estado_id = newEstado._id
+
+        const newObj = await new Cidade(defaultState).save()
+        CidadeCriada = { ...newObj.toJSON() }
     })
 
    
     describe("POST /api/cidades", () => {
         let resp; 
         let status;
+        let defaultStatePost;
 
         beforeAll( async () => {
+            defaultStatePost = {
+                nome: "Cidade Teste Post",
+                estado_id: CidadeCriada.estado_id
+            }
+
             resp = await request( API.app )
                 .post('/api/cidades')
-                .send(Cidade)
+                .send( defaultStatePost )
                 .set({ 'x-api-key': process.env.WEB_SECRET }) 
-            
-            id_cidade = resp.body._id
+
+            IdCidadeCriadaPost = resp.body._id
         })
 
         test("Verificar se o metodo retorna o status 200", () => {                 
             expect(resp.statusCode).toBe(200)       
         })
         test("Verifica se os o registro está integro", () => {                 
-            expect(resp.body).toEqual( expect.objectContaining(Cidade) )       
+            expect(resp.body).toEqual( expect.objectContaining(defaultStatePost) )       
         })
     })
 
@@ -54,24 +64,26 @@ describe("Integridade da api de cidades", () => {
         })
 
         test("Verifica se consigo pegar um unico registro", async () => {
+            const { _id, nome, estado_id } = CidadeCriada
             const { statusCode, body } = await request( API.app )
-                .get(`/api/cidades/${id_cidade}`)
+                .get(`/api/cidades/${_id}`)
                 .set({ 'x-api-key': process.env.WEB_SECRET }) 
 
-            expect(statusCode).toBe(200)  
-            expect( body ).toEqual( expect.objectContaining({ ...Cidade, _id: id_cidade }) )
+            expect( statusCode ).toBe(200)  
+            expect( body ).toEqual( expect.objectContaining( { nome, estado_id} ) )
         })
     })
 
     describe("PUT /api/cidades", () => {  
         let resp;
-        const newState = {
-            nome: "Volta redonda"
-        }
+        let newState
         beforeAll( async () => {
+            newState = {
+                nome: "Renamed City"
+            }
             resp = await request( API.app )
-                .put(`/api/cidades/${id_cidade}`)
-                .send(newState)
+                .put(`/api/cidades/${CidadeCriada._id}`)
+                .send({ ...CidadeCriada, ...newState })
                 .set({ 'x-api-key': process.env.WEB_SECRET }) 
         }) 
 
@@ -79,7 +91,7 @@ describe("Integridade da api de cidades", () => {
             expect(resp.statusCode).toBe(200)       
         })
         test("Verifica se o update foi realizado", async () => {
-            expect(resp.body).toEqual( expect.objectContaining({ ...newState,  _id: id_cidade }) )       
+            expect(resp.body).toEqual( expect.objectContaining( newState ) )       
         })
         test("Verifica se a data de alteração foi criada", async () => {
             expect(!!resp.body.ultima_alteracao).toBeTruthy()    
@@ -91,27 +103,22 @@ describe("Integridade da api de cidades", () => {
 
         test("Verificar se o metodo retorna o status 200", async () => { 
             const resp = await request( API.app )
-                .delete(`/api/cidades/${id_cidade}`)
+                .delete(`/api/cidades/${CidadeCriada._id}`)
                 .set({ 'x-api-key': process.env.WEB_SECRET }) 
 
             expect(resp.statusCode).toBe(200)       
         })
         
         test("Verificar se o foi realmente excluido", async () => { 
-            const { statusCode } = await request( API.app )
-                .get(`/api/cidades/${id_cidade}`)   
-                .set({ 'x-api-key': process.env.WEB_SECRET }) 
-
-            expect( statusCode ).toBe(404)       
+            const status = await Cidade.findById( CidadeCriada._id ) 
+            expect( status ).toBeFalsy()
         })
 
     })
         
     afterAll( async (done) => {
-        await request( API.app )
-            .delete(`/api/estados/${Cidade.estado_id}`)
-            .set({ 'x-api-key': process.env.WEB_SECRET }) 
-            
+        await Cidade.findByIdAndDelete( IdCidadeCriadaPost )
+        await Estado.findByIdAndDelete( CidadeCriada.estado_id )            
         API.disconnectMongo()
         done()
     })
