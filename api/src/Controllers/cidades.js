@@ -60,7 +60,7 @@ class CidadeCtrl {
                 },
                 async estado_id({ req, res } ){
                     if( !req.body.estado_id ) 
-                            res.status(405).json("Data origatório!")
+                            res.status(405).json("Id do estado é origatório!")
                     
                     const estado = await Estado.findById( req.body.estado_id )
                     if(!estado) res.status(404).json("o id do estado não foi encontrado!")

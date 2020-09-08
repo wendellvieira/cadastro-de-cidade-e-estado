@@ -34,6 +34,7 @@
     import EditBtn from "@/components/edit-btn"
     import { mapActions, mapState } from "vuex"
     import { DateMixin } from "@/assets/utils"
+    import TratamentoDeErro from "@/assets/Error"
 
     export default {
         components: {
@@ -61,7 +62,11 @@
             }
         },
         mounted(){
-            this.$load_cidades()
+            try {
+                this.$load_cidades()                
+            } catch (error) {
+                TratamentoDeErro(error)
+            }
         }
     };
 </script>

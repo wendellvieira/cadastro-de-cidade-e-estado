@@ -5,6 +5,8 @@
     </svg>
 </template>
 <script>
+    import TratamentoDeErro from "@/assets/Error"
+
     export default {
         data(){
             return {
@@ -21,11 +23,17 @@
         },
         methods: {
             async handle_click(){
-                if( this.disabled ) return;
-                
-                this.disabled = true
-                await this.fx( this.item_id )
-                this.disabled = false
+                try {
+                    if( this.disabled ) return;
+                    
+                    this.disabled = true
+                    await this.fx( this.item_id )
+                    this.disabled = false
+                    
+                } catch (error) {
+                    this.disabled = false
+                    TratamentoDeErro(error)                    
+                }
             }
         }        
     };

@@ -29,6 +29,7 @@
     const reset_data = { nome: "", abreviacao: "" }
 
     import { mapActions } from "vuex"
+    import TratamentoDeErro from "@/assets/Error"
 
     export default {
         data(){
@@ -58,8 +59,9 @@
                     this.clearData()
                     this.disabled = false
                     
-                } catch ( error) {
-                    console.log( error )
+                } catch ( error ) {
+                    this.disabled = false
+                    TratamentoDeErro(error)
                 }
             }
             
