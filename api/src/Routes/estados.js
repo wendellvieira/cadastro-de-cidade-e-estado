@@ -63,7 +63,11 @@ module.exports = app => {
     *           description: Erro por parte do cliente
     */
     routes.get("/:id", [
-        AuthApi,       
+        AuthApi,
+        async (req, res, next) => await EstadoCtrl.validacao(
+            ["id"], 
+            {req, res, next}
+        ),       
         EstadoCtrl.getAll
     ])
 
@@ -86,6 +90,10 @@ module.exports = app => {
     */
     routes.post("/", [
         AuthApi,
+        async (req, res, next) => await EstadoCtrl.validacao(
+            ["nome", "abreviacao"], 
+            {req, res, next}
+        ),
         EstadoCtrl.create
     ])
 
@@ -113,6 +121,10 @@ module.exports = app => {
     */
     routes.put("/:id", [
         AuthApi,
+        async (req, res, next) => await EstadoCtrl.validacao(
+            ["id", "nome", "abreviacao", "criado_em"], 
+            {req, res, next}
+        ),
         EstadoCtrl.update        
     ])
 
@@ -140,6 +152,7 @@ module.exports = app => {
     */
     routes.delete("/:id", [
         AuthApi,
+        async (req, res, next) => await EstadoCtrl.validacao( ["id"], {req, res, next} ),
         EstadoCtrl.delete  
     ])
 
