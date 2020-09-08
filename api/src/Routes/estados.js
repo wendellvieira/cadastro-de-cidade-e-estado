@@ -55,12 +55,12 @@ module.exports = app => {
     *      responses:
     *        '200':
     *           description: OK
-    *           schema: 
-    *             $ref: '#/definitions/EstadoRegistrado'
     *        '404':
-    *           description: O usuário não foi encontrado
-    *        '400':
-    *           description: Erro por parte do cliente
+    *           description: Registro não encontrado
+    *        '405':
+    *           description: Dados incorretos
+    *        '500':
+    *           description: Erro do servidor
     */
     routes.get("/:id", [
         AuthApi,
@@ -82,11 +82,13 @@ module.exports = app => {
     *        - Estados
     *      responses:
     *        '200':
-    *           description: Estado cadastrado com sucesso
-    *           schema: 
-    *             $ref: '#/definitions/Estado'
-    *        '400':
-    *           description: Erro ao cadastrar Estado
+    *           description: OK
+    *        '404':
+    *           description: Registro não encontrado
+    *        '405':
+    *           description: Dados incorretos
+    *        '500':
+    *           description: Erro do servidor
     */
     routes.post("/", [
         AuthApi,
@@ -113,11 +115,13 @@ module.exports = app => {
     *          type: ObjectId
     *      responses:
     *        '200':
-    *           description: Estado salvo com sucesso
-    *           schema: 
-    *             $ref: '#/definitions/EstadoRegistrado'
-    *        '400':
-    *           description: Erro ao cadastrar Estado
+    *           description: OK
+    *        '404':
+    *           description: Registro não encontrado
+    *        '405':
+    *           description: Dados incorretos
+    *        '500':
+    *           description: Erro do servidor
     */
     routes.put("/:id", [
         AuthApi,
@@ -144,11 +148,13 @@ module.exports = app => {
     *          type: ObjectId
     *      responses:
     *        '200':
-    *           description: Estado excluido com sucesso
-    *        '400':
-    *           description: Erro ao excluir Estado
-    *        '406':
-    *           description: Id não informado
+    *           description: OK
+    *        '404':
+    *           description: Registro não encontrado
+    *        '405':
+    *           description: Dados incorretos
+    *        '500':
+    *           description: Erro do servidor
     */
     routes.delete("/:id", [
         AuthApi,

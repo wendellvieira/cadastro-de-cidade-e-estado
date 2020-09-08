@@ -28,7 +28,7 @@ module.exports = class Server {
         const swaggerUi = require("swagger-ui-express")
         const swaggerOptions = require('Configs/SwaggerOptions.js')
         const swaggerDocs = swaggerJsDoc(swaggerOptions)
-        this.app.use( "/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs) )
+        this.app.use( "/", swaggerUi.serve, swaggerUi.setup(swaggerDocs) )
     }
 
     async iniciandoMongo(){

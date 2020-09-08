@@ -8,10 +8,9 @@ export const instance = axios.create({
     validateStatus: status => {
         return [ 
             200, 
-            201, 
             405, 
             404, 
-            501,
+            500,
         ].indexOf(status) != -1
     }
 })

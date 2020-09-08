@@ -54,11 +54,12 @@ module.exports = app => {
     *      responses:
     *        '200':
     *           description: OK
-    *           schema: 
-    *             type: array
-    *             $ref: '#/definitions/CidadeRegistrada'
-    *        '400':
-    *           description: Erro por parte do cliente
+    *        '404':
+    *           description: Registro não encontrado
+    *        '405':
+    *           description: Dados incorretos
+    *        '500':
+    *           description: Erro do servidor
     */
     routes.get("/:id", [
       AuthApi,
@@ -80,11 +81,13 @@ module.exports = app => {
     *        - Cidades
     *      responses:
     *        '200':
-    *           description: Cidade cadastrada com sucesso
-    *           schema: 
-    *             $ref: '#/definitions/Cidade'
-    *        '400':
-    *           description: Erro ao cadastrar Estado
+    *           description: OK
+    *        '404':
+    *           description: Registro não encontrado
+    *        '405':
+    *           description: Dados incorretos
+    *        '500':
+    *           description: Erro do servidor
     */
     routes.post("/", [
       AuthApi,
@@ -110,13 +113,13 @@ module.exports = app => {
      *        - Cidades
      *      responses:
      *        '200':
-     *           description: Cidade alterada com sucesso
-     *           schema: 
-     *             $ref: '#/definitions/CidadeRegistrada'
-     *        '406':
-     *           description: Id não informado
-     *        '400':
-     *           description: Erro ao cadastrar Estado
+     *           description: OK
+     *        '404':
+     *           description: Registro não encontrado
+     *        '405':
+     *           description: Dados incorretos
+     *        '500':
+     *           description: Erro do servidor
      */
     routes.put("/:id", [
       AuthApi,
@@ -143,13 +146,13 @@ module.exports = app => {
       *        - Cidades
       *      responses:
       *        '200':
-      *           description: Cidade alterada com sucesso
-      *           schema: 
-      *             $ref: '#/definitions/CidadeRegistrada'
-      *        '406':
-      *           description: Id não informado
-      *        '400':
-      *           description: Erro ao cadastrar Estado
+      *           description: OK
+      *        '404':
+      *           description: Registro não encontrado
+      *        '405':
+      *           description: Dados incorretos
+      *        '500':
+      *           description: Erro do servidor
       */
     routes.delete("/:id", [
       AuthApi,
