@@ -1,5 +1,5 @@
 # Cadastro de cidades e estado
-Grud utilizando Vue + nodejs para cadastro de cidade e estado
+Crud utilizando Vue + nodejs para cadastro de cidade e estado
 
 ### Considerações iniciais
 - Este é o primeiro arquivo criado desse projeto
