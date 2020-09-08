@@ -8,15 +8,20 @@ services:
       - 27017:${MONGO_PORT}
 
   api:
+    environment:
+      PROJECT_ALIAS:
     container_name: "${PROJECT_ALIAS}_API"
-    build: ./api
+    build: 
+      context: ./api
+      args:
+        API_SECRET:
+        API_URL:
+        API_INT_PORT:
+        MONGO_URI:
+        WEB_SECRET:  
     volumes:
       - ./api/src:/node-app/src
       - ./api/__tests__:/node-app/__tests__
-    environment:
-      API_INT_PORT:
-      API_URL:
-      MONGO_URI:  
     depends_on:
       - mongo
     links:
@@ -31,6 +36,7 @@ services:
       args:
         API_URL:
         WEB_INT_PORT:
+        WEB_SECRET:
     volumes:
       - ./web/src:/node-app/src
       - ./web/public:/node-app/public
