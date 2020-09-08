@@ -8,7 +8,9 @@ module.exports = class Server {
         this.app.use( bodyParser.urlencoded({ extended: true }) )
 
         const cors = require('cors')
-        this.app.use( cors() )
+        this.app.use( cors({ allowedHeaders: ['x-api-key'] }) )
+
+        
 
         this.mongo = require('Configs/MongoConnect.js')
        
