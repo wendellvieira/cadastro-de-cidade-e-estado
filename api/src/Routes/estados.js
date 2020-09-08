@@ -1,5 +1,6 @@
 const { Router } = require('express')
 const EstadoCtrl = require('Controllers/estados.js')
+const AuthApi = require('Configs/AuthApi.js')
 
 module.exports = app => {
     const routes = Router()
@@ -62,6 +63,7 @@ module.exports = app => {
     *           description: Erro por parte do cliente
     */
     routes.get("/:id", [
+        AuthApi,       
         EstadoCtrl.getAll
     ])
 
@@ -83,6 +85,7 @@ module.exports = app => {
     *           description: Erro ao cadastrar Estado
     */
     routes.post("/", [
+        AuthApi,
         EstadoCtrl.create
     ])
 
@@ -109,6 +112,7 @@ module.exports = app => {
     *           description: Erro ao cadastrar Estado
     */
     routes.put("/:id", [
+        AuthApi,
         EstadoCtrl.update        
     ])
 
@@ -135,6 +139,7 @@ module.exports = app => {
     *           description: Id não informado
     */
     routes.delete("/:id", [
+        AuthApi,
         EstadoCtrl.delete  
     ])
 

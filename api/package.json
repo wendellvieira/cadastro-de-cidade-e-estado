@@ -23,6 +23,8 @@
   "author": "wendell vieira da cunha <wendell.vieiracunha@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "api-key-auth": "^0.2.3",
+    "bcrypt": "^5.0.0",
     "body-parse": "^0.1.0",
     "consign": "^0.1.6",
     "cors": "^2.8.5",

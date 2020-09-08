@@ -22,6 +22,7 @@ describe("Integridade da api de estados", () => {
             resp = await request( API.app )
                 .post('/api/estados')
                 .send(Estado)
+                .set({ 'x-api-key': process.env.WEB_SECRET })
             
             id_estado = resp.body._id
         })
@@ -37,13 +38,19 @@ describe("Integridade da api de estados", () => {
     describe("GET /api/estados/:id", () => {   
              
         test("Verifica o retorno da lista de usuários", async () => {        
-            const { statusCode, body } = await request( API.app ).get('/api/estados/all')
+            const { statusCode, body } = await request( API.app )
+                .get('/api/estados/all')
+                .set({ 'x-api-key': process.env.WEB_SECRET })
+
             expect(statusCode).toBe(200)    
             expect( Array.isArray(body) ).toBeTruthy()
         })
 
         test("Verifica se consigo pegar um unico registro", async () => {
-            const { statusCode, body } = await request( API.app ).get(`/api/estados/${id_estado}`)
+            const { statusCode, body } = await request( API.app )
+                .get(`/api/estados/${id_estado}`)
+                .set({ 'x-api-key': process.env.WEB_SECRET })
+
             expect(statusCode).toBe(200)  
             expect( body ).toEqual( expect.objectContaining({ ...Estado, _id: id_estado }) )
         })
@@ -59,6 +66,7 @@ describe("Integridade da api de estados", () => {
             resp = await request( API.app )
                 .put(`/api/estados/${id_estado}`)
                 .send(newState)
+                .set({ 'x-api-key': process.env.WEB_SECRET })
         }) 
 
         test("Verificar se o metodo retorna o status 200", async () => {
@@ -76,12 +84,17 @@ describe("Integridade da api de estados", () => {
     describe("DELETE /api/estados", () => {    
 
         test("Verificar se o metodo retorna o status 200", async () => { 
-            const resp = await request( API.app ).delete(`/api/estados/${id_estado}`)       
+            const resp = await request( API.app )
+                .delete(`/api/estados/${id_estado}`)
+                .set({ 'x-api-key': process.env.WEB_SECRET })       
             expect(resp.statusCode).toBe(200)       
         })
         
         test("Verificar se o foi realmente excluido", async () => { 
-            const { statusCode } = await request( API.app ).get(`/api/estados/${id_estado}`)      
+            const { statusCode } = await request( API.app )
+                .get(`/api/estados/${id_estado}`)
+                .set({ 'x-api-key': process.env.WEB_SECRET })   
+
             expect( statusCode ).toBe(404)       
         })
 

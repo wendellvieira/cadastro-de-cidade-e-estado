@@ -15,6 +15,7 @@ describe("Integridade da api de cidades", () => {
         const { body } =  await request( API.app )
                 .post('/api/estados')
                 .send({ nome: "Rio de janeiro", abreviacao: "ET" })
+                .set({ 'x-api-key': process.env.WEB_SECRET }) 
         
         Cidade.estado_id = body._id
     })
@@ -28,6 +29,7 @@ describe("Integridade da api de cidades", () => {
             resp = await request( API.app )
                 .post('/api/cidades')
                 .send(Cidade)
+                .set({ 'x-api-key': process.env.WEB_SECRET }) 
             
             id_cidade = resp.body._id
         })
@@ -43,13 +45,19 @@ describe("Integridade da api de cidades", () => {
     describe("GET /api/cidades/all", () => {   
              
         test("Verifica o retorno da lista de usuários", async () => {        
-            const { statusCode, body } = await request( API.app ).get('/api/cidades/all')
+            const { statusCode, body } = await request( API.app )
+                .get('/api/cidades/all')
+                .set({ 'x-api-key': process.env.WEB_SECRET }) 
+
             expect(statusCode).toBe(200)    
             expect( Array.isArray(body) ).toBeTruthy()
         })
 
         test("Verifica se consigo pegar um unico registro", async () => {
-            const { statusCode, body } = await request( API.app ).get(`/api/cidades/${id_cidade}`)
+            const { statusCode, body } = await request( API.app )
+                .get(`/api/cidades/${id_cidade}`)
+                .set({ 'x-api-key': process.env.WEB_SECRET }) 
+
             expect(statusCode).toBe(200)  
             expect( body ).toEqual( expect.objectContaining({ ...Cidade, _id: id_cidade }) )
         })
@@ -64,6 +72,7 @@ describe("Integridade da api de cidades", () => {
             resp = await request( API.app )
                 .put(`/api/cidades/${id_cidade}`)
                 .send(newState)
+                .set({ 'x-api-key': process.env.WEB_SECRET }) 
         }) 
 
         test("Verificar se o metodo retorna o status 200", async () => {
@@ -81,19 +90,28 @@ describe("Integridade da api de cidades", () => {
     describe("DELETE /api/cidades", () => {    
 
         test("Verificar se o metodo retorna o status 200", async () => { 
-            const resp = await request( API.app ).delete(`/api/cidades/${id_cidade}`)       
+            const resp = await request( API.app )
+                .delete(`/api/cidades/${id_cidade}`)
+                .set({ 'x-api-key': process.env.WEB_SECRET }) 
+
             expect(resp.statusCode).toBe(200)       
         })
         
         test("Verificar se o foi realmente excluido", async () => { 
-            const { statusCode } = await request( API.app ).get(`/api/cidades/${id_cidade}`)      
+            const { statusCode } = await request( API.app )
+                .get(`/api/cidades/${id_cidade}`)   
+                .set({ 'x-api-key': process.env.WEB_SECRET }) 
+
             expect( statusCode ).toBe(404)       
         })
 
     })
         
     afterAll( async (done) => {
-        await request( API.app ).delete(`/api/estados/${Cidade.estado_id}`)
+        await request( API.app )
+            .delete(`/api/estados/${Cidade.estado_id}`)
+            .set({ 'x-api-key': process.env.WEB_SECRET }) 
+            
         API.disconnectMongo()
         done()
     })

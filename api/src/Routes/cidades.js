@@ -1,5 +1,6 @@
 const { Router } = require('express')
 const CidadeCtrl = require('Controllers/cidades.js')
+const AuthApi = require('Configs/AuthApi.js')
 
   /**
     * @swagger
@@ -60,6 +61,7 @@ module.exports = app => {
     *           description: Erro por parte do cliente
     */
     routes.get("/:id", [
+      AuthApi,
       CidadeCtrl.getAll
     ])
 
@@ -81,6 +83,7 @@ module.exports = app => {
     *           description: Erro ao cadastrar Estado
     */
     routes.post("/", [
+      AuthApi,
       CidadeCtrl.create
     ])
    
@@ -108,6 +111,7 @@ module.exports = app => {
      *           description: Erro ao cadastrar Estado
      */
     routes.put("/:id", [
+      AuthApi,
       CidadeCtrl.update
     ])
     
@@ -136,6 +140,7 @@ module.exports = app => {
       *           description: Erro ao cadastrar Estado
       */
     routes.delete("/:id", [
+      AuthApi,
       CidadeCtrl.delete
     ])
 
