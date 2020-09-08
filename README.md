@@ -3,7 +3,7 @@ Crud utilizando Vue + nodejs para cadastro de cidade e estado
 
 ### Considerações iniciais
 - Este é o primeiro arquivo criado desse projeto
-- Para efeito de cálculo de performance este teste foi feito em 05/09/2020 10:30 - 
+- Para efeito de cálculo de performance este teste foi feito em 05/09/2020 10:30 - 08/09/2020 18:30 totalizando 26 hrs 1 min registradas pelo WakaTime
 - Este projeto será baseado em micro serviços, será divido em dois serviços stateless (API, WEB) que serão pasta na raiz do projeto
 - Para a API será utilizada um container node com a versão 12.18 visto que essa é a última versão estável no momento em que esse projeto foi feito
 - Para executar o projeto basta executar o comando, é nescessário que o pc tenha o docker instalado
